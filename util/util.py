@@ -102,7 +102,7 @@ def create_expt_dir(params):
     mkdir(expt_dir)
 
     # Save the parameters
-    json.dump(params, open(os.path.join(expt_dir, 'params.json'), 'wb'),
+    json.dump(params, open(os.path.join(expt_dir, 'params.json'), 'w'),
               indent=4, sort_keys=True)
 
     return expt_dir
