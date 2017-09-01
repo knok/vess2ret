@@ -161,8 +161,8 @@ class TwoImageIterator(Iterator):
                      grayscale=self.is_b_grayscale,
                      target_size=self.target_size)
 
-        a = img_to_array(a, self.dim_ordering)
-        b = img_to_array(b, self.dim_ordering)
+        a = img_to_array(a, 'channels_first') #self.dim_ordering)
+        b = img_to_array(b, 'channels_first') #self.dim_ordering)
 
         return a, b
 
