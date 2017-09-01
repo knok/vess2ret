@@ -14,53 +14,53 @@ from util.util import MyDict, log, save_weights, load_weights, load_losses, crea
 
 def print_help():
     """Print how to use this script."""
-    print "Usage:"
-    print "train.py [--help] [--nfd] [--nfatob] [--alpha] [--epochs] [batch_size] [--samples_per_batch] " \
+    print("Usage:")
+    print("train.py [--help] [--nfd] [--nfatob] [--alpha] [--epochs] [batch_size] [--samples_per_batch] " \
           "[--save_every] [--lr] [--beta_1] [--continue_train] [--log_dir]" \
           "[--expt_name] [--base_dir] [--train_dir] [--val_dir] [--train_samples] " \
           "[--val_samples] [--load_to_memory] [--a_ch] [--b_ch] [--is_a_binary] " \
           "[--is_b_binary] [--is_a_grayscale] [--is_b_grayscale] [--target_size] " \
           "[--rotation_range] [--height_shift_range] [--width_shift_range] " \
-          "[--horizontal_flip] [--vertical_flip] [--zoom_range]"
-    print "--nfd: Number of filters of the first layer of the discriminator."
-    print "--nfatob: Number of filters of the first layer of the AtoB model."
-    print "--alpha: The weight of the reconstruction loss of the AtoB model."
-    print "--epochs: Number of epochs to train the model."
-    print "--batch_size: the size of the batch to train."
-    print "--samples_per_batch: The number of samples to train each model on each iteration."
-    print "--save_every: Save results every 'save_every' epochs on the log folder."
-    print "--lr: The learning rate to train the models."
-    print "--beta_1: The beta_1 value of the Adam optimizer."
-    print "--continue_train: If it should continue the training from the last checkpoint."
-    print "--log_dir: The directory to place the logs."
-    print "--expt_name: The name of the experiment. Saves the logs into a folder with this name."
-    print "--base_dir: Directory that contains the data."
-    print "--train_dir: Directory inside base_dir that contains training data. " \
-          "Must contain an A and B folder."
-    print "--val_dir: Directory inside base_dir that contains validation data. " \
-          "Must contain an A and B folder."
-    print "--train_samples: The number of training samples. Set -1 to be the same as training examples."
-    print "--val_samples: The number of validation samples. Set -1 to be the same as validation examples."
-    print "--load_to_memory: Whether to load images into memory or read from the filesystem."
-    print "--a_ch: Number of channels of images A."
-    print "--b_ch: Number of channels of images B."
-    print "--is_a_binary: If A is binary, its values will be 0 or 1. A threshold of 0.5 is used."
-    print "--is_b_binary: If B is binary, the last layer of the atob model is " \
+          "[--horizontal_flip] [--vertical_flip] [--zoom_range]")
+    print("--nfd: Number of filters of the first layer of the discriminator.")
+    print("--nfatob: Number of filters of the first layer of the AtoB model.")
+    print("--alpha: The weight of the reconstruction loss of the AtoB model.")
+    print("--epochs: Number of epochs to train the model.")
+    print("--batch_size: the size of the batch to train.")
+    print("--samples_per_batch: The number of samples to train each model on each iteration.")
+    print("--save_every: Save results every 'save_every' epochs on the log folder.")
+    print("--lr: The learning rate to train the models.")
+    print("--beta_1: The beta_1 value of the Adam optimizer.")
+    print("--continue_train: If it should continue the training from the last checkpoint.")
+    print("--log_dir: The directory to place the logs.")
+    print("--expt_name: The name of the experiment. Saves the logs into a folder with this name.")
+    print("--base_dir: Directory that contains the data.")
+    print("--train_dir: Directory inside base_dir that contains training data. " \
+          "Must contain an A and B folder.")
+    print("--val_dir: Directory inside base_dir that contains validation data. " \
+          "Must contain an A and B folder.")
+    print("--train_samples: The number of training samples. Set -1 to be the same as training examples.")
+    print("--val_samples: The number of validation samples. Set -1 to be the same as validation examples.")
+    print("--load_to_memory: Whether to load images into memory or read from the filesystem.")
+    print("--a_ch: Number of channels of images A.")
+    print("--b_ch: Number of channels of images B.")
+    print("--is_a_binary: If A is binary, its values will be 0 or 1. A threshold of 0.5 is used.")
+    print("--is_b_binary: If B is binary, the last layer of the atob model is " \
           "followed by a sigmoid. Otherwise, a tanh is used. When the sigmoid is " \
           "used, the binary crossentropy loss is used. For the tanh, the L1 is used. Also, " \
-          "its values will be 0 or 1. A threshold of 0.5 is used."
-    print "--is_a_grayscale: If A images should only have one channel. If they are color images, " \
-          "they are converted to grayscale."
-    print "--is_b_grayscale: If B images should only have one channel. If they are color images, " \
-          "they are converted to grayscale."
-    print "--target_size: The size of the images loaded by the iterator. THIS DOES NOT CHANGE THE MODELS. " \
-          "If you want to accept images of different sizes you will need to update the models.py files."
-    print "--rotation_range: The range to rotate training images for dataset augmentation."
-    print "--height_shift_range: Percentage of height of the image to translate for dataset augmentation."
-    print "--width_shift_range: Percentage of width of the image to translate for dataset augmentation."
-    print "--horizontal_flip: If true performs random horizontal flips on the train set."
-    print "--vertical_flip: If true performs random vertical flips on the train set."
-    print "--zoom_range: Defines the range to scale the image for dataset augmentation."
+          "its values will be 0 or 1. A threshold of 0.5 is used.")
+    print("--is_a_grayscale: If A images should only have one channel. If they are color images, " \
+          "they are converted to grayscale.")
+    print("--is_b_grayscale: If B images should only have one channel. If they are color images, " \
+          "they are converted to grayscale.")
+    print("--target_size: The size of the images loaded by the iterator. THIS DOES NOT CHANGE THE MODELS. " \
+          "If you want to accept images of different sizes you will need to update the models.py files.")
+    print("--rotation_range: The range to rotate training images for dataset augmentation.")
+    print("--height_shift_range: Percentage of height of the image to translate for dataset augmentation.")
+    print("--width_shift_range: Percentage of width of the image to translate for dataset augmentation.")
+    print("--horizontal_flip: If true performs random horizontal flips on the train set.")
+    print("--vertical_flip: If true performs random vertical flips on the train set.")
+    print("--zoom_range: Defines the range to scale the image for dataset augmentation.")
 
 
 def discriminator_generator(it, atob, dout_size):
@@ -135,10 +135,10 @@ def evaluate(models, generators, losses, val_samples=192):
     losses['d_val'].append(d_loss)
     losses['p2p_val'].append(p2p_loss)
 
-    print ''
-    print ('Train Losses of (D={0} / P2P={1});\n'
+    print('')
+    print(('Train Losses of (D={0} / P2P={1});\n'
            'Validation Losses of (D={2} / P2P={3})'.format(
-                losses['d'][-1], losses['p2p'][-1], d_loss, p2p_loss))
+                losses['d'][-1], losses['p2p'][-1], d_loss, p2p_loss)))
 
     return d_loss, p2p_loss
 
@@ -239,7 +239,7 @@ def train(models, it_train, it_val, params):
     if params.continue_train:
         losses = load_losses(log_dir=params.log_dir, expt_name=params.expt_name)
 
-    for e in tqdm(range(params.epochs)):
+    for e in tqdm(list(range(params.epochs))):
 
         for b in range(batches_per_epoch):
             train_iteration(models, generators, losses, params)
@@ -293,7 +293,7 @@ if __name__ == '__main__':
         'zoom_range': 0.,  # Defines the range to scale the image for dataset augmentation
     })
 
-    param_names = [k + '=' for k in params.keys()] + ['help']
+    param_names = [k + '=' for k in list(params.keys())] + ['help']
 
     try:
         opts, args = getopt.getopt(a, '', param_names)

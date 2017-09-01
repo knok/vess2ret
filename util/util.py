@@ -5,7 +5,7 @@ from errno import EEXIST
 
 import numpy as np
 import seaborn as sns
-import cPickle as pickle
+import pickle as pickle
 import matplotlib.pyplot as plt
 
 sns.set()
