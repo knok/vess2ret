@@ -220,7 +220,7 @@ def train(models, it_train, it_val, params):
     create_expt_dir(params)
 
     # Get the output shape of the discriminator
-    dout_size = (16, 16) #d.output_shape[-2:]
+    dout_size = d.output_shape[1:3] #d.output_shape[-2:]
     # Define the data generators
     generators = generators_creation(it_train, it_val, models, dout_size)
 
@@ -257,7 +257,7 @@ if __name__ == '__main__':
 
     params = MyDict({
         # Model
-        'nfd': 32,  # Number of filters of the first layer of the discriminator
+        'nfd': 64,  # Number of filters of the first layer of the discriminator
         'nfatob': 64,  # Number of filters of the first layer of the AtoB model
         'alpha': 100,  # The weight of the reconstruction loss of the atob model
         # Train
