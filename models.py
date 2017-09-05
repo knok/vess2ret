@@ -575,9 +575,13 @@ def discriminator(a_ch, b_ch, nf, opt=Adam(lr=2e-4, beta_1=0.5), name='d'):
     x = LeakyReLU(0.2)(conv4)
     # nf*8 x 32 x 32
 
-    conv5 = Convolution(1)(x)
-    out = Activation('sigmoid')(conv5)
-    # 1 x 16 x 16
+    conv5 = Convolution(nf * 16, s=1)(x)
+    x = LeakyReLU(0.2)(conv4)
+    # nf*16 x 32 x 32
+
+    conv6 = Convolution(1, s=1)(x)
+    out = Activation('sigmoid')(conv6)
+    # 1 x 32 x 32
 
     d = Model(i, out, name=name)
 
