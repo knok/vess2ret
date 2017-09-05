@@ -17,7 +17,7 @@ class TwoImageIterator(Iterator):
                  is_b_grayscale=False, target_size=(256, 256), rotation_range=0.,
                  height_shift_range=0., width_shift_range=0., zoom_range=0.,
                  fill_mode='constant', cval=0., horizontal_flip=False,
-                 vertical_flip=False,  dim_ordering='default', N=-1,
+                 vertical_flip=False,  dim_ordering='tf', N=-1,
                  batch_size=32, shuffle=True, seed=None):
         """
         Iterate through two directories at the same time.
@@ -161,8 +161,8 @@ class TwoImageIterator(Iterator):
                      grayscale=self.is_b_grayscale,
                      target_size=self.target_size)
 
-        a = img_to_array(a, 'channels_first') #self.dim_ordering)
-        b = img_to_array(b, 'channels_first') #self.dim_ordering)
+        a = img_to_array(a, 'channels_last') #self.dim_ordering)
+        b = img_to_array(b, 'channels_last') #self.dim_ordering)
 
         return a, b
 

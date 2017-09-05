@@ -56,8 +56,8 @@ def convert_to_rgb(img, is_binary=False):
 
 def compose_imgs(a, b, is_a_binary=True, is_b_binary=False):
     """Place a and b side by side to be plotted."""
-    ap = convert_to_rgb(a, is_binary=is_a_binary)
-    bp = convert_to_rgb(b, is_binary=is_b_binary)
+    #ap = convert_to_rgb(a, is_binary=is_a_binary)
+    #bp = convert_to_rgb(b, is_binary=is_b_binary)
 
     if ap.shape != bp.shape:
         raise Exception("""A and B must have the same size. """

@@ -23,7 +23,7 @@ except ImportError:
     print("Keras 2 layers could not be imported defaulting to keras1")
     KERAS_2 = False
 
-K.set_image_dim_ordering('th')
+K.set_image_dim_ordering('tf')
 
 
 def concatenate_layers(inputs, concat_axis, mode='concat'):
@@ -555,7 +555,8 @@ def discriminator(a_ch, b_ch, nf, opt=Adam(lr=2e-4, beta_1=0.5), name='d'):
     Non-trainable params: 0.0
     _________________________________________________________________
     """
-    i = Input(shape=(a_ch + b_ch, 512, 512))
+    #i = Input(shape=(a_ch + b_ch, 512, 512))
+    i = Input(shape=(512, 512, a_ch + b_ch))
 
     # (a_ch + b_ch) x 512 x 512
     conv1 = Convolution(nf)(i)
@@ -627,14 +628,16 @@ def pix2pix(atob, d, a_ch, b_ch, alpha=100, is_a_binary=False,
     Non-trainable params: 408.0
     _________________________________________________________________
     """
-    a = Input(shape=(a_ch, 512, 512))
-    b = Input(shape=(b_ch, 512, 512))
+    # a = Input(shape=(a_ch, 512, 512))
+    # b = Input(shape=(b_ch, 512, 512))
+    a = Input(shape=(512, 512, a_ch))
+    b = Input(shape=(512, 512, b_ch))
 
     # A -> B'
     bp = atob(a)
 
     # Discriminator receives the pair of images
-    d_in = concatenate_layers([a, bp], mode='concat', concat_axis=1)
+    d_in = concatenate_layers([a, bp], mode='concat', concat_axis=-1)
 
     pix2pix = Model([a, b], d(d_in), name=name)
 
