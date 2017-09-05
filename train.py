@@ -81,8 +81,8 @@ def discriminator_generator(it, atob, dout_size):
         a_real, b_real = next(it)
 
         # Concatenate the channels. Images become (ch_a + ch_b) x 256 x 256
-        fake = np.concatenate((a_fake, b_fake), axis=1)
-        real = np.concatenate((a_real, b_real), axis=1)
+        fake = np.concatenate((a_fake, b_fake), axis=-1)
+        real = np.concatenate((a_real, b_real), axis=-1)
 
         # Concatenate fake and real pairs into a single batch
         batch_x = np.concatenate((fake, real), axis=0)
@@ -220,7 +220,7 @@ def train(models, it_train, it_val, params):
     create_expt_dir(params)
 
     # Get the output shape of the discriminator
-    dout_size = d.output_shape[-2:]
+    dout_size = (16, 16) #d.output_shape[-2:]
     # Define the data generators
     generators = generators_creation(it_train, it_val, models, dout_size)
 
@@ -278,11 +278,11 @@ if __name__ == '__main__':
         'val_samples': -1,  # The number of validation samples. Set -1 to be the same as validation examples
         'load_to_memory': True,  # Whether to load the images into memory
         # Image
-        'a_ch': 1,  # Number of channels of images A
+        'a_ch': 3,  # Number of channels of images A
         'b_ch': 3,  # Number of channels of images B
-        'is_a_binary': True,  # If A is binary, its values will be either 0 or 1
+        'is_a_binary': False,  # If A is binary, its values will be either 0 or 1
         'is_b_binary': False,  # If B is binary, the last layer of the atob model is followed by a sigmoid
-        'is_a_grayscale': True,  # If A is grayscale, the image will only have one channel
+        'is_a_grayscale': False,  # If A is grayscale, the image will only have one channel
         'is_b_grayscale': False,  # If B is grayscale, the image will only have one channel
         'target_size': 512,  # The size of the images loaded by the iterator. DOES NOT CHANGE THE MODELS
         'rotation_range': 0.,  # The range to rotate training images for dataset augmentation
